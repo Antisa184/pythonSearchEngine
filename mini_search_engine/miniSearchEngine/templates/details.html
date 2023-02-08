@@ -1,0 +1,12 @@
+{% extends "master.html"  %}
+
+{% block title %}
+    Record #{{ record.id }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ record.id }}. {{ record.record }}</h1>
+
+<p><a href="/updateRecord/{{record.id}}">Update</a></p>
+<p>Back to <a href="/textRecords">TextRecords</a></p>
+{% endblock %}

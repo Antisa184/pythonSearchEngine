@@ -1,0 +1,20 @@
+{% extends "master.html"  %}
+
+{% block title %}
+  Search results for: '{{keyword}}'
+{% endblock %}
+
+{% block content %}
+  <h1>Search existing records</h1>
+  <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+  </form>
+  <h1>Search results for: '{{keyword}}'</h1>
+  <ul>
+    {% for x in recordsFiltered %}
+      <li><a href="/textRecords/details/{{ x.id }}">{{x.id}}. {{x.record}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

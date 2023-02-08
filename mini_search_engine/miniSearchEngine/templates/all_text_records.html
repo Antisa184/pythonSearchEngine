@@ -1,0 +1,15 @@
+{% extends "master.html"  %}
+
+{% block title %}
+  All Text Records
+{% endblock %}
+
+{% block content %}
+  <h1>Text Records</h1>
+
+  <ul>
+    {% for x in records %}
+      <li><a href="details/{{ x.id }}">{{x.id}}. {{x.record}}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

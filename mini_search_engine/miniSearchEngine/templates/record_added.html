@@ -1,0 +1,12 @@
+{% extends "master.html"  %}
+
+{% block title %}
+    Success!
+{% endblock %}
+
+{% block content %}
+
+<h1>Successfully added a new record.</h1>
+<p><a href="/textRecords/details/{{record.id}}">Check it out!</a></p>
+
+{% endblock %}

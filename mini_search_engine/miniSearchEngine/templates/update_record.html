@@ -1,0 +1,18 @@
+{% extends "master.html"  %}
+
+{% block title %}
+    Update record #{{record.id}}
+{% endblock %}
+
+{% block content %}
+
+<p>Update text record</p>
+
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}
