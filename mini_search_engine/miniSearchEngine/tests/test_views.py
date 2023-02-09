@@ -15,6 +15,10 @@ class TextRecordListViewTest(TestCase):
         for record_id in range(number_of_records):
             TextRecord.objects.create(record=f"Record number {record_id+1}")
 
+    def test_view_details_of_non_existing_record(self):
+        response = self.client.get("/textRecords/details/00000000")
+        self.assertRedirects(response, reverse('doesNotExist'),status_code=302, target_status_code=404)
+
     def test_url_exists(self):
         response = self.client.get("/textRecords/")
         self.assertEqual(response.status_code, 200)
@@ -32,18 +36,18 @@ class TextRecordListViewTest(TestCase):
         response = self.client.get("/textRecords/details/1")
         self.assertEqual(response.status_code, 200)
 
-    def test_view_details_of_non_existing_record(self):
-        response = self.client.get("/textRecords/details/00000000")
-        self.assertRedirects(response, reverse('doesNotExist'),status_code=302, target_status_code=404)
-
     def test_adding_new_record(self):
         TextRecord.objects.create(record='New record')
         response = self.client.get("/recordAdded/11")
         self.assertEqual(response.status_code, 200)
         response = self.client.get("/textRecords/details/11")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<h1>11. New record</h1>')
-        self.assertNotContains(response, '<h1>12. New record</h1>')
+        self.assertContains(response, '11. New record')
+        self.assertNotContains(response, '12. New record')
+
+    def test_record_added_redirect(self):
+        response= self.client.post("/newRecord/", data={'record':"New Record"})
+        self.assertRedirects(response, reverse('recordAdded', kwargs={'id':11}), status_code=302, target_status_code=200)
 
     def test_updating_latest_record(self):
         response = self.client.get("/updateRecord/10")
@@ -56,3 +60,14 @@ class TextRecordListViewTest(TestCase):
         response = self.client.get("/updateRecord/10")
         self.assertNotContains(response, 'value="Record number 10')
         self.assertContains(response, 'value="Updated value')
+
+    def test_searching_records(self):
+        response = self.client.get("/searchResults/")
+        self.assertContains(response, '10 search results')
+        response = self.client.get("/searchResults/number%2010")
+        self.assertContains(response, '1 search result')
+        self.assertNotContains(response, '1 search results')
+        TextRecord.objects.create(record='New record')
+        response = self.client.get("/searchResults/New")
+        self.assertContains(response, 'New')
+        self.assertContains(response, '1 search result')

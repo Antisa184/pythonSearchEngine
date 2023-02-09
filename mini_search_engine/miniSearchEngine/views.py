@@ -82,10 +82,14 @@ def searchResults(request, keyword=''):
         form = RecordForm()
     filtered = TextRecord.objects.filter(record__icontains=keyword)
     template = loader.get_template('search_results.html')
+    count = len(filtered)
+    res = 'result' if count==1 else 'results'
     context = {
         'recordsFiltered':filtered,
         'keyword':keyword,
         'form':form,
+        'count':count,
+        'res':res
     }
     return HttpResponse(template.render(context, request))
 

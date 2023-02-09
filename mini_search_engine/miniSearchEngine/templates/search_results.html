@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Search existing records</h1>
+  <h1 class="w3-narrow">Search existing records</h1>
   <form action="" method="post" novalidate>
       {% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Submit">
+      <input class="w3-button w3-black w3-section" type="submit" value="SUBMIT">
   </form>
-  <h1>Search results for: '{{keyword}}'</h1>
+  <h1 class="w3-narrow">{{count}} search {{res}} for: '{{keyword}}'</h1>
+
+
   <ul>
     {% for x in recordsFiltered %}
       <li><a href="/textRecords/details/{{ x.id }}">{{x.id}}. {{x.record}}</a></li>

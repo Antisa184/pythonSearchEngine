@@ -6,12 +6,12 @@
 
 {% block content %}
 
-<p>Create new text record</p>
+<h1 class="w3-narrow">Create new text record</h1>
 
 <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <input class="w3-button w3-black w3-section w3-left" type="submit" value="SUBMIT">
 </form>
 
 
