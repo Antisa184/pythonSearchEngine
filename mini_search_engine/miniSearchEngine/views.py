@@ -11,6 +11,8 @@ def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
 
+def doesNotExist(request, exception=None):
+    return render(request, '404.html', status=404)
 def textRecords(request):
     records = TextRecord.objects.all().values()
     template = loader.get_template('all_text_records.html')
@@ -20,7 +22,10 @@ def textRecords(request):
     return HttpResponse(template.render(context, request))
 
 def details(request, id):
-    record = TextRecord.objects.get(id=id)
+    try:
+        record = TextRecord.objects.get(id=id)
+    except:
+        return redirect('doesNotExist')
     template = loader.get_template('details.html')
     context = {
         'record': record,

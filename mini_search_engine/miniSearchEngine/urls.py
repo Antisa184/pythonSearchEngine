@@ -9,5 +9,8 @@ urlpatterns = [
     path('recordAdded/<int:id>', views.recordAdded, name='recordAdded'),
     path('updateRecord/<int:id>', views.updateRecord, name='updateRecord'),
     path('searchResults/',views.searchResults, name='searchResults'),
-    path('searchResults/<str:keyword>', views.searchResults, name='searchResults')
+    path('searchResults/<str:keyword>', views.searchResults, name='searchResults'),
+    path('doesNotExist/', views.doesNotExist, name='doesNotExist')
 ]
+
+handler404 = views.doesNotExist
