@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from django.http import HttpResponse
 
-from .core.records import createNewRecord, updateExistingRecord
+from .core.records import createNewRecord, updateExistingRecord, deleteExistingRecord
 from .models import TextRecord
 from .forms import RecordForm
 
@@ -64,6 +64,13 @@ def updateRecord(request, id):
     }
     return HttpResponse(template.render(context, request))
 
+def deleteRecord(request, id):
+    deleteExistingRecord(id=id)
+    template = loader.get_template('record_deleted.html')
+    context={
+        'id':id,
+    }
+    return HttpResponse(template.render(context,request))
 def recordAdded(request, id):
     record = TextRecord.objects.get(id=id)
     template = loader.get_template('record_added.html')

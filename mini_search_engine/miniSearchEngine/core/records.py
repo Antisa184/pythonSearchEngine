@@ -9,3 +9,6 @@ def updateExistingRecord(updatedRecord, id):
     record = TextRecord.objects.get(id=id)
     record.record = updatedRecord
     record.save()
+
+def deleteExistingRecord(id):
+    TextRecord.objects.filter(id=id).delete()
