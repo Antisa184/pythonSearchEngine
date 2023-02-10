@@ -12,7 +12,7 @@ Navigate to '/mini_search_engine' in terminal.
 
 # Things to update
 
-- Add delete function
+- ~~Add delete function~~
 - Add users
 - Make it more beautiful
 - Add smarter search algorithm
